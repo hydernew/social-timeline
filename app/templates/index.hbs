@@ -1,1 +1,126 @@
-{{posts-timeline data=data max=max}}
+<div class="container">
+  {{posts-timeline data=data max=max}}
+  <br>
+  <div class="media-container">
+    <div class="row">
+      <div class="col-3">
+        <div class="card">
+          <h4 class="card-title">Pins <span class="badge badge-primary" data-test-title="pin-total">{{pin.length}}</span></h4>
+          {{#if pinMedia}}
+            <div class="card-body">
+              {{#if pinMedia.title}}
+                <h5>{{pinMedia.title}}</h5>
+              {{/if}}
+              <p class="card-text" data-test-title="pin-text">
+                {{pinMedia.description}}
+              </p>
+              <div class="row">
+                <div class="col-2">Likes: {{pinMedia.likes}}</div>
+                <div class="col-2">Comments: {{pinMedia.comments}}</div>
+                <div class="col-2">Saves: {{pinMedia.saves}}</div>
+                <div class="col-2">Repins: {{pinMedia.repins}}</div>
+              </div>
+            </div>
+          {{/if}}
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="card">
+          <h4 class="card-title">Instagram Medias <span class="badge badge-primary"  data-test-title="insta-total">{{instagram_media.length}}</span></h4>
+          {{#if instaMedia}}
+            <img
+              class="card-img-top"
+              src="https://www.instagram.com/p/{{instaMedia.post_id}}/media/?size=m"
+              alt="Card image cap"
+            >
+            <div class="card-body">
+              <p class="card-text" data-test-title="insta-text">
+                {{instaMedia.text}}
+              </p>
+              <div class="row">
+                <div class="col-4">Likes: {{instaMedia.likes}}</div>
+                <div class="col-4">Comments: {{instaMedia.comments}}</div>
+              </div>
+            </div>
+          {{/if}}
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="card">
+          <h4 class="card-title">Youtube Videos <span class="badge badge-primary" data-test-title="youtube-total">{{youtube_video.length}}</span></h4>
+          {{#if youtubeVideo}}
+            <img
+              class="card-img-top"
+              src="https://img.youtube.com/vi/{{youtubeVideo.post_id}}/mqdefault.jpg"
+              alt="Card image cap"
+            >
+            <div class="card-body">
+              <p class="card-text" data-test-title="youtube-text">
+                {{youtubeVideo.description}}
+              </p>
+              <div class="row">
+                <div class="col-4">Likes: {{youtubeVideo.likes}}</div>
+                <div class="col-4">Dislikes: {{youtubeVideo.dislikes}}</div>
+              </div>
+            </div>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-3">
+        <div class="card">
+          <h4 class="card-title">Tweets <span class="badge badge-primary" data-test-title="tweet-total">{{tweet.length}}</span></h4>
+          {{#if tweetMedia}}
+            <div class="card-body">
+              <p class="card-text" data-test-title="tweet-text">
+                {{tweetMedia.content}}
+              </p>
+              <div class="row">
+                <div class="col-4">Retweets: {{tweetMedia.retweets}}</div>
+                <div class="col-4">Favorites: {{tweetMedia.favorites}}</div>
+              </div>
+            </div>
+          {{/if}}
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="card">
+          <h4 class="card-title">Facebook Status <span class="badge badge-primary" data-test-title="facebook-total">{{facebook_status.length}}</span></h4>
+          {{#if facebookStatus}}
+            <div class="card-body">
+              <p class="card-text" data-test-title="facebook-text">
+                {{facebookStatus.text}}
+              </p>
+              <div class="row">
+                <div class="col-3">Likes: {{facebookStatus.likes}}</div>
+                <div class="col-3">Comments: {{facebookStatus.comments}}</div>
+                <div class="col-3">Shares: {{facebookStatus.shares}}</div>
+              </div>
+            </div>
+          {{/if}}
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="card">
+          <h4 class="card-title">Articles <span class="badge badge-primary" data-test-title="article-total">{{article.length}}</span></h4>
+          {{#if articleMedia}}
+            <div class="card-body">
+              <h5>{{articleMedia.title}}</h5>
+              <p class="card-text"data-test-title="article-text">
+                {{articleMedia.description}}
+              </p>
+              <a href={{articleMedia.url}} target="_blank" rel="noopener noreferrer">Read More</a>
+              <br>
+              <div class="row">
+                <div class="col-4">Likes: {{instaMedia.likes}}</div>
+                <div class="col-4">Comments: {{instaMedia.comments}}</div>
+              </div>
+            </div>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,18 +1,25 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { set } from '@ember/object';
+import { oneWay } from '@ember/object/computed';
 export default Controller.extend({
   streamer: service(),
   max: 0,
+  pinMedia: oneWay('pin.lastObject'),
+  instaMedia: oneWay('instagram_media.lastObject'),
+  youtubeVideo: oneWay('youtube_video.lastObject'),
+  tweetMedia: oneWay('tweet.lastObject'),
+  facebookStatus: oneWay('facebook_status.lastObject'),
+  articleMedia: oneWay('article.lastObject'),
   init() {
     this._super();
     this.setProperties({
       pin: [],
       instagram_media: [],
       youtube_video: [],
-      article: [],
       tweet: [],
       facebook_status: [],
+      article: [],
       data: [
         {
           "label": "Sunday",
