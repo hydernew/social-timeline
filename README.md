@@ -1,7 +1,6 @@
 # social-timeline
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+A demo of this app can be found [here](http://social-timeline.s3-website-us-east-1.amazonaws.com/)
 
 ## Prerequisites
 
@@ -35,8 +34,15 @@ You will need the following things properly installed on your computer.
 * `ember build --environment production` (production)
 
 ### Deploying
+Create a file named `.env` with the below content
 
+```bash
+ACCESS_KEY_ID='<your-aws-access-key>'
+SECRET_ACCESS_KEY='<your-aws-secret>'
+BUCKET='<your-s3-bucket>'
+REGION='<the-region-your-bucket-is-in>'
 ```
+
 ### Description of Solution
 
 This application draws a 3-dimensional visualization of the social posts received from [upfluence stream](https://stream.upfluence.co/stream) and one instance of each post type along with a counter of the number of posts processed.
@@ -49,6 +55,8 @@ This application draws a 3-dimensional visualization of the social posts receive
 
 * Data is received as streams from [upstream's publicly available HTTP API ](https://stream.upfluence.co/stream) which streams post using [SSE](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) technology.
 
+* The app is deployed into Amazon S3 and static contents are served via Amazon CloudFront CDN.
+
 ###Reasoning behind technical choices
 
 * Emberjs provides a complete package to create an ambitious web application, hence it is used as the framework to build the app.
@@ -60,6 +68,8 @@ This application draws a 3-dimensional visualization of the social posts receive
 * Stream handling such as connection open, listening for messages are done in an Ember Service. Since a service can do a process in isolation and can be plugged anywhere in the app, service is used.
 
 * [ember-test-selectors](https://github.com/simplabs/ember-test-selectors) is used to query dom in test environment that is stripped off in production environment
+
+* `ember-cli-deploy plugin` is used to deploy the app. As the app is deployed in Amazon S3 `ember-cli-deploy-s3` plugin is used along with `ember-cli-deploy` plugin. `ember-cli-deploy-gzip` is used to gzip the contents before they are deployed to S3.
 
 ###Trade-offs
 

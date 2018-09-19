@@ -46,6 +46,8 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
+    ENV.rootURL='https://d20hs4sg6h4k77.cloudfront.net/';
+    ENV.locationType = 'hash';
     // here you can enable a production-specific feature
   }
 
