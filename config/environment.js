@@ -3,6 +3,7 @@
 module.exports = function(environment) {
   let ENV = {
     modulePrefix: 'social-timeline',
+    streamSourceUrl: 'https://stream.upfluence.co/stream',
     environment,
     rootURL: '/',
     locationType: 'auto',
@@ -41,6 +42,7 @@ module.exports = function(environment) {
 
     ENV.APP.rootElement = '#ember-testing';
     ENV.APP.autoboot = false;
+    ENV.streamSourceUrl = '';
   }
 
   if (environment === 'production') {

@@ -6,13 +6,16 @@ import {
   axisBottom,
   select
 } from "d3";
+import {
+  observer
+} from '@ember/object';
 export default Component.extend({
   data: null,
   didInsertElement() {
     this._super(...arguments);
     let id = this.elementId;
     let data = this.data;
-    let labelsX = [
+    let labelsX = this.labelsX = [
       "0",
       "1",
       "2",
@@ -38,18 +41,18 @@ export default Component.extend({
       "22",
       "23"
     ];
-    let labelsY = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    let margin = {
+    let labelsY = this.labelsY = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    let margin = this.margin = {
       top: 20,
       right: 30,
       bottom: 30,
       left: 120
     };
-    let width = 900 - margin.left - margin.right;
-    let height = 350 - margin.top - margin.bottom;
+    let width = this.width = 900 - margin.left - margin.right;
+    let height = this.height = 350 - margin.top - margin.bottom;
 
-    let yScale = scalePoint().padding(0.5);
-    let xScale = scalePoint().padding(0.3);
+    let yScale = this.yScale = scalePoint().padding(0.5);
+    let xScale = this.xScale = scalePoint().padding(0.3);
 
     yScale
       .range([0, height])
@@ -111,9 +114,25 @@ export default Component.extend({
       .attr("transform", function (d) {
         return "translate(0," + yScale(d.label) + ")";
       });
+    this.updateChart();
+  },
+
+  dataChanged: observer('data.@each.values','max', function () {
+    this.updateChart();
+  }),
+
+  updateChart() {
+    let svg = this.svg;
+    let data = this.data;
+    let max = this.max;
+    let labelsX = this.labelsX;
+    let lablesY = this.labelsY;
     let radius = scaleSqrt();
     let transition = svg.transition().duration(500);
-    let max = this.max;
+    let yScale = this.yScale;
+    let xScale = this.xScale;
+    let width = this.width;
+    let height = this.height;
 
     radius
       .range([0, 15])
@@ -125,11 +144,11 @@ export default Component.extend({
 
     yScale
       .range([0, height])
-      .domain(labelsY);
+      .domain(lablesY);
 
     svg.datum(data);
 
-    rows = svg.selectAll("g.site");
+    let rows = svg.selectAll("g.site");
     let circles = rows.selectAll("circle")
       .data(
         function (d) {
