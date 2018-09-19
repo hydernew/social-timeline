@@ -57,7 +57,7 @@ This application draws a 3-dimensional visualization of the social posts receive
 
 * The app is deployed into Amazon S3 and static contents are served via Amazon CloudFront CDN.
 
-###Reasoning behind technical choices
+### Reasoning behind technical choices
 
 * Emberjs provides a complete package to create an ambitious web application, hence it is used as the framework to build the app.
 
@@ -71,7 +71,7 @@ This application draws a 3-dimensional visualization of the social posts receive
 
 * `ember-cli-deploy plugin` is used to deploy the app. As the app is deployed in Amazon S3 `ember-cli-deploy-s3` plugin is used along with `ember-cli-deploy` plugin. `ember-cli-deploy-gzip` is used to gzip the contents before they are deployed to S3.
 
-###Trade-offs
+### Trade-offs
 
 * Since the punch card chart is used for a specific data, axis information is harcoded. If needed this can be obtained by processing the data passed to the chart.
 
