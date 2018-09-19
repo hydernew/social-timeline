@@ -1,0 +1,11 @@
+svg {
+  border:1px solid #d0d0d0;
+  background-color: #ededed;
+}
+text {
+  font-size: 12px;
+  fill: #888;
+}
+path, line {
+  stroke: #888;
+}
