@@ -1,5 +1,4 @@
-# social-timeline
-
+# social-timeline [![Build Status](https://travis-ci.com/hydernew/social-timeline.svg?branch=master)](https://travis-ci.com/hydernew/social-timeline)
 A demo of this app can be found [here](http://social-timeline.s3-website-us-east-1.amazonaws.com/)
 
 ## Prerequisites
