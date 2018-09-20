@@ -218,7 +218,7 @@ module('Integration | Component | posts-timeline', function(hooks) {
     this.set('data', data);
     await render(hbs`{{posts-timeline data=data max=4}}`);
 
-    assert.equal(this.element.querySelectorAll('circle')[5].getAttribute('r'), '0', 'Radius is greater than 0 when value is 0');
+    assert.equal(this.element.querySelectorAll('circle')[5].getAttribute('r'), '0', 'Radius is 0 when value is 0');
 
     assert.equal(this.element.querySelector('circle').getAttribute('cx'), '9.533898305084733', 'X is calculated correctly for first element');
 
