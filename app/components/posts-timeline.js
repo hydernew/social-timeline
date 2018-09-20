@@ -1,11 +1,16 @@
 import Component from '@ember/component';
 import {
+  select
+} from "d3-selection";
+import {
   scalePoint,
-  scaleSqrt,
+  scaleSqrt
+} from 'd3-scale';
+import {
   axisLeft,
   axisBottom,
-  select
-} from "d3";
+} from 'd3-axis';
+import 'd3-transition';
 import {
   observer
 } from '@ember/object';
@@ -117,7 +122,7 @@ export default Component.extend({
     this.updateChart();
   },
 
-  dataChanged: observer('data.@each.values','max', function () {
+  dataChanged: observer('data.@each.values', 'max', function () {
     this.updateChart();
   }),
 
@@ -204,13 +209,13 @@ export default Component.extend({
         select(this).select("text").transition().style('opacity', 0);
       });
 
-      tooltip = rows.selectAll('.tool-tip');
-      tooltip.append('text')
+    tooltip = rows.selectAll('.tool-tip');
+    tooltip.append('text')
       .style('text-anchor', 'middle')
       .style('fill', '#ffffff')
       .style('opacity', 0);
 
-      tooltip
+    tooltip
       .attr('transform', function (d, i) {
         return "translate(" + xScale(i) + ",0)";
       })
