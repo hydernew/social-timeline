@@ -4,7 +4,6 @@ import { set } from '@ember/object';
 import { oneWay } from '@ember/object/computed';
 export default Controller.extend({
   streamer: service(),
-  max: 0,
   pinMedia: oneWay('pin.lastObject'),
   instaMedia: oneWay('instagram_media.lastObject'),
   youtubeVideo: oneWay('youtube_video.lastObject'),
@@ -59,7 +58,6 @@ export default Controller.extend({
     });
   },
   processChartData(json) {
-    let max = this.max;
     let data = this.data;
     let { timestamp } = json;
     let date = new Date(timestamp*1000);
@@ -67,11 +65,8 @@ export default Controller.extend({
     let hours = date.getHours();
     let dayObject = data[day];
     //Create new array as ember observer's @each can work one level deep only
-    let dayValues = Array.prototype.concat([],dayObject.values);
-    let value = ++dayValues[hours];
-    if(value > max) {
-      this.set('max', value);
-    }
+    let dayValues = dayObject.values.slice();
+    dayValues[hours]++;
     set(dayObject,'values', dayValues);
   }
 });

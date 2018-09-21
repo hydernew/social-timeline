@@ -118,17 +118,20 @@ export default Component.extend({
     this.updateChart();
   },
 
-  dataChanged: observer('data.@each.values', 'max', function () {
+  dataChanged: observer('data.@each.values', function () {
     this.updateChart();
   }),
 
   updateChart() {
     let svg = this.svg;
     let data = this.data;
-    let max = this.max;
     let radius = scaleSqrt();
     let transition = svg.transition().duration(500);
     let xScale = this.xScale;
+    let allvalues = data.reduce( (accumulator, currentvalue) => accumulator.concat(currentvalue.values), []);
+    allvalues.sort();
+    let max = allvalues[allvalues.length - 1];
+
 
     radius
       .range([0, 15])

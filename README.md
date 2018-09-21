@@ -74,6 +74,6 @@ This application draws a 3-dimensional visualization of the social posts receive
 
 * Since the punch card chart is used for a specific data, axis information is harcoded. If needed this can be obtained by processing the data passed to the chart.
 
-* The maximum value for the posts count an a given day at a given time is also passed to the chart from the controller as the maximum calculation will be simpler in the controller than the chart. If needed all the values in the data can be accumulated in a single array and it's maximum value can be obtained.
+* ~~The maximum value for the posts count an a given day at a given time is also passed to the chart from the controller as the maximum calculation will be simpler in the controller than the chart. If needed all the values in the data can be accumulated in a single array and it's maximum value can be obtained.~~ This is now handled in the chart itself
 
 * The connection to the stream is not closed and is kept open as long as the app is kept opened. This can increase the memory consumed. If needed the connection can be closed and reopened and flushing the data in the mean time.
