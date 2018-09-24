@@ -61,8 +61,8 @@ export default Controller.extend({
     let data = this.data;
     let { timestamp } = json;
     let date = new Date(timestamp*1000);
-    let day = date.getDay();
-    let hours = date.getHours();
+    let day = date.getUTCDay();
+    let hours = date.getUTCHours();
     let dayObject = data[day];
     //Create new array as ember observer's @each can work one level deep only
     let dayValues = dayObject.values.slice();
