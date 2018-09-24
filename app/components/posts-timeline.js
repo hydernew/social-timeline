@@ -14,6 +14,12 @@ import 'd3-transition';
 import {
   observer
 } from '@ember/object';
+const getMaxValue = (data) => {
+  let allvalues = data.reduce((accumulator, currentvalue) => accumulator.concat(currentvalue.values), []);
+    allvalues.sort();
+    let max = allvalues[allvalues.length - 1];
+    return max;
+};
 export default Component.extend({
   data: null,
   didInsertElement() {
@@ -57,7 +63,7 @@ export default Component.extend({
     let height = 350 - margin.top - margin.bottom;
 
     let yScale = scalePoint().padding(0.5);
-    let xScale = this.xScale = scalePoint().padding(0.3);
+    let xScale = scalePoint().padding(0.3);
 
     yScale
       .range([0, height])
@@ -115,31 +121,8 @@ export default Component.extend({
       .attr("transform", function (d) {
         return "translate(0," + yScale(d.label) + ")";
       });
-    this.updateChart();
-  },
 
-  dataChanged: observer('data.@each.values', function () {
-    this.updateChart();
-  }),
-
-  updateChart() {
-    let svg = this.svg;
-    let data = this.data;
-    let radius = scaleSqrt();
-    let transition = svg.transition().duration(500);
-    let xScale = this.xScale;
-    let allvalues = data.reduce( (accumulator, currentvalue) => accumulator.concat(currentvalue.values), []);
-    allvalues.sort();
-    let max = allvalues[allvalues.length - 1];
-
-
-    radius
-      .range([0, 15])
-      .domain([0, max]);
-
-    svg.datum(data);
-
-    let rows = svg.selectAll("g.site");
+    rows = svg.selectAll("g.site");
     let circles = rows.selectAll("circle")
       .data(
         function (d) {
@@ -149,22 +132,15 @@ export default Component.extend({
           return i;
         }
       );
+    let radius = scaleSqrt();
+    let transition = svg.transition().duration(500);
+    let max = getMaxValue(data);
 
-    circles.exit()
-      .transition(transition)
-      .attr('r', 0)
-      .style("fill", "rgba(255,255,255,0)")
-      .remove();
 
-    circles
-      .attr("cy", 0)
-      .attr("cx", function (d, i) {
-        return xScale(i);
-      })
-      .transition(transition)
-      .attr("r", function (d) {
-        return radius(d);
-      });
+    radius
+      .range([0, 15])
+      .domain([0, max]);
+
 
     circles.enter().append("circle")
       .attr("cy", 0)
@@ -212,6 +188,58 @@ export default Component.extend({
       .attr('y', 4)
       .attr('x', 0);
 
-    tooltip.exit().remove();
+  },
+
+  dataChanged: observer('data.@each.values', function () {
+    this.updateChart();
+  }),
+
+  updateChart() {
+    let svg = this.svg;
+    let data = this.data;
+    let radius = scaleSqrt();
+    let transition = svg.transition().duration(500);
+    let max = getMaxValue(data);
+
+    radius
+      .range([0, 15])
+      .domain([0, max]);
+
+    svg.datum(data);
+
+    let rows = svg.selectAll("g.site");
+    let circles = rows.selectAll("circle")
+      .data(
+        function (d) {
+          return d.values;
+        },
+        function (d, i) {
+          return i;
+        }
+      );
+
+    circles
+      .transition(transition)
+      .attr("r", function (d) {
+        return radius(d);
+      });
+
+    let tooltip = rows.selectAll('.tool-tip')
+      .data(
+        function (d) {
+          return d.values;
+        },
+        function (d, i) {
+          return i;
+        }
+      );
+
+    tooltip = rows.selectAll('.tool-tip');
+
+    tooltip.select('text')
+      .text(function (d) {
+        return d;
+      });
+
   }
 });
